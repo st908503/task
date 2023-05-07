@@ -29,23 +29,31 @@ const UserData = () => {
             selector: row => row.name
         },
         {
-            date_of_birth_and_age: 'Enter Age',
-            selector: row => row.date_of_birth_and_age
+            date_of_birth_or_age: 'Age',
+            selector: row => row.date_of_birth_or_age
         },
         {
-            mobile: 'Enter Mobile',
+            gender: 'Sex',
+            selector: row => row.gender
+        },
+        {
+            mobile: 'Mobile',
             selector: row => row.mobile
         },
         {
-            address: 'Enter Address',
+            address: 'Address',
             selector: row => row.address
         },
         {
-            pan: 'Enter PAN',
-            selector: row => row.pan
+            government_id: 'Govt ID',
+            selector: row => row.government_id
         },
         {
-            nationality: 'Enter Nationality',
+            gurdian_detail: 'Guardian Details',
+            selector: row => row.gurdian_detail
+        },
+        {
+            nationality: 'Nationality',
             selector: row => row.nationality
         },
     ]

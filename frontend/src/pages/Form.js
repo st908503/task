@@ -14,8 +14,20 @@ const FormData = () => {
             gender: yup.string().required('Please select gender'),
             mobile: yup.string().matches(/^([0]|\+91)?[789]\d{9}$/, 'Phone number is not valid').min(10, "Phone number must be of minimum 10 digits").max(10, "Phone number must be of 10 digits only"),
             emergency_contact_number: yup.string().matches(/^([0]|\+91)?[789]\d{9}$/, 'Phone number is not valid').min(10, "Phone number must be of minimum 10 digits").max(10, "Phone number must be of 10 digits only"),
-            aadhar: yup.string().required('Please enter Aadhar').matches(/^([0-9]{4}[0-9]{4}[0-9]{4}$)|([0-9]{4}\s[0-9]{4}\s[0-9]{4}$)|([0-9]{4}-[0-9]{4}-[0-9]{4}$)/, 'Aadhar is required and must be a 12-digit number only.'),
-            pan: yup.string().required('Please enter PAN').matches(/^[A-Z]{5}\d{4}[A-Z]{1}$/, 'PAN is required and must be 10-digit alpha-numeric only .')
+            idType: yup.string(),
+            aadhar: yup.string().when('idType', {
+                is: 'aadhar',
+                then: ()=> yup.string().required('Please enter Aadhar').matches(/^([0-9]{4}[0-9]{4}[0-9]{4}$)|([0-9]{4}\s[0-9]{4}\s[0-9]{4}$)|([0-9]{4}-[0-9]{4}-[0-9]{4}$)/, 'Aadhar is required and must be a 12-digit number only.')
+
+            }),
+            pan: yup.string().when('idType', {
+                is: 'pan',
+                then: () => yup.string().required('Please enter PAN').matches(/^[A-Z]{5}\d{4}[A-Z]{1}$/, 'PAN is required and must be 10-digit alpha-numeric only .')
+
+            }),
+            // aadhar: yup.string().required('Please enter Aadhar').matches(/^([0-9]{4}[0-9]{4}[0-9]{4}$)|([0-9]{4}\s[0-9]{4}\s[0-9]{4}$)|([0-9]{4}-[0-9]{4}-[0-9]{4}$)/, 'Aadhar is required and must be a 12-digit number only.'),
+            // pan: yup.string().required('Please enter PAN').matches(/^[A-Z]{5}\d{4}[A-Z]{1}$/, 'PAN is required and must be 10-digit alpha-numeric only .')
+
         })
         .required();
 
@@ -31,10 +43,14 @@ const FormData = () => {
 
     const submitDetails = async (data) => {
         console.log(data)
-        axios.post("http://localhost:8000/formdetails", data)
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
+        try {
 
+            const res = await axios.post("http://localhost:8000/formdetails", data)
+            console.log(res)
+        }
+        catch (err) {
+            console.log(err)
+        }
     };
 
     return (
@@ -109,44 +125,44 @@ const FormData = () => {
                         <div>
                             <label htmlFor="idType">Govt Issued ID</label>
                             <select
-                                name="idType"
-                                defaultValue=''
+                                // name="idType"
+                                // defaultValue=''
                                 className="border-gray-400 border-2 rounded px-1 w-24 mr-2 ml-3"
                                 {...register("idType")}
                             >
-                                <option></option>
-                                <option value="Aadhar">Aadhar</option>
-                                <option value="PAN">PAN</option>
+                                <option value=''></option>
+                                <option value="aadhar">Aadhar</option>
+                                <option value="pan">PAN</option>
                             </select>
 
                         </div>
-                        {idType === "Aadhar" ? (
+                        {idType === "aadhar" ? (
                             <div>
                                 <label htmlFor="aadhar">Aadhar number:</label>
                                 <input
-                                    type="text"
+                                    // type="text"
                                     placeholder="Enter Aadhar Number"
                                     className="border-gray-400 border-2 rounded px-1 ml-3"
-                                    id="aadhar"
+                                    // name="aadhar"
                                     {...register("aadhar")}
                                 />
                                 {errors.aadhar && (
-                                    <span className="text-red-500">{errors.aadhar.message}</span>
-                                )}
+                                    <span className="text-red-500">{errors.aadhar.message}</span>)
+                                }
                             </div>
                         ) : (
                             <div>
                                 <label htmlFor="pan">PAN number:</label>
                                 <input
-                                    type="text"
+                                    // type="text"
                                     placeholder="Enter PAN"
                                     className="border-gray-400 border-2 rounded px-1 ml-3"
-                                    id="pan"
+                                    // name="pan"
                                     {...register("pan")}
                                 />
                                 {errors.pan && (
-                                    <span className="text-red-500">{errors.pan.message}</span>
-                                )}
+                                    <span className="text-red-500">{errors.pan.message}</span>)
+                                }
                             </div>
                         )}
                     </div>
@@ -337,7 +353,7 @@ const FormData = () => {
                 </div>
                 <div className="flex justify-end gap-5 mt-5 px-20">
                     <button
-                        onClick={submitDetails}
+                        // onClick={submitDetails}
                         type="submit"
                         className="border-green-700 bg-green-700 text-white border-2 px-3 py-1 rounded"
                     >
