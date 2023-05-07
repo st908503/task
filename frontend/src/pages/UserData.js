@@ -25,7 +25,7 @@ const UserData = () => {
 
     const columns = [
         {
-            name: 'Enter name',
+            name: 'Name',
             selector: row => row.name
         },
         {
@@ -41,12 +41,8 @@ const UserData = () => {
             selector: row => row.address
         },
         {
-            nationality: 'Enter Nationality',
-            selector: row => row.nationality
-        },
-        {
-            nationality: 'Enter Nationality',
-            selector: row => row.nationality
+            pan: 'Enter Nationality',
+            selector: row => row.pan
         },
         {
             nationality: 'Enter Nationality',
@@ -56,9 +52,9 @@ const UserData = () => {
 
     return (
         <>
-            <div className='flex flex-col items-center'>
+            <div className='flex mt-20 flex-col items-center'>
 
-                <h1>UserData</h1>
+                <h1 className='font-bold text-2xl'>UserData</h1>
             </div>
             <DataTable columns={columns} data={userDetails} pagination />
 

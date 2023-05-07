@@ -14,8 +14,8 @@ const Form = () => {
             gender: yup.string().required('Please select gender'),
             mobile: yup.string().matches(/^([0]|\+91)?[789]\d{9}$/, 'Phone number is not valid').min(10, "Phone number must be of minimum 10 digits").max(10, "Phone number must be of 10 digits only"),
             emergency_contact_number: yup.string().matches(/^([0]|\+91)?[789]\d{9}$/, 'Phone number is not valid').min(10, "Phone number must be of minimum 10 digits").max(10, "Phone number must be of 10 digits only"),
-            aadhar: yup.string().required('Please enter Aadhar').matches(/^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$/, 'Aadhar is required and must be a 12-digit number.'),
-            pan: yup.string().required('Please enter PAN').matches(/^[A-Z]{5}\d{4}[A-Z]{1}$/, 'PAN is required and must be 10-digit alpha-numeric .')
+            aadhar: yup.string().required('Please enter Aadhar').matches(/^([0-9]{4}[0-9]{4}[0-9]{4}$)|([0-9]{4}\s[0-9]{4}\s[0-9]{4}$)|([0-9]{4}-[0-9]{4}-[0-9]{4}$)/, 'Aadhar is required and must be a 12-digit number only.'),
+            pan: yup.string().required('Please enter PAN').matches(/^[A-Z]{5}\d{4}[A-Z]{1}$/, 'PAN is required and must be 10-digit alpha-numeric only .')
         })
         .required();
 
@@ -353,8 +353,8 @@ const Form = () => {
                         </Link>
                     </button>
                 </div>
-            </form >
-        </div >
+            </form>
+        </div>
     );
 };
 
