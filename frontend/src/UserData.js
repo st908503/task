@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
+import { Link } from 'react-router-dom';
 
 
 const UserData = () => {
@@ -10,7 +11,7 @@ const UserData = () => {
         try {
             const response = await fetch("http://localhost:8000/results");
             const jsonData = await response.json();
-           setUserDetails(jsonData.userDetails);
+            setUserDetails(jsonData.userDetails);
         }
         catch (err) {
             console.log(err)
@@ -29,7 +30,7 @@ const UserData = () => {
         },
         {
             date_of_birth_and_age: 'Enter Age',
-            selector: row => row.age
+            selector: row => row.date_of_birth_and_age
         },
         {
             mobile: 'Enter Mobile',
@@ -38,6 +39,14 @@ const UserData = () => {
         {
             address: 'Enter Address',
             selector: row => row.address
+        },
+        {
+            nationality: 'Enter Nationality',
+            selector: row => row.nationality
+        },
+        {
+            nationality: 'Enter Nationality',
+            selector: row => row.nationality
         },
         {
             nationality: 'Enter Nationality',
@@ -52,6 +61,8 @@ const UserData = () => {
                 <h1>UserData</h1>
             </div>
             <DataTable columns={columns} data={userDetails} pagination />
+
+            <Link to='/'><button className='border-green-700 bg-green-700 text-white border-2 px-3 py-1 absolute mt-10 right-10 rounded'>Back to Form</button></Link>
         </>
     )
 }

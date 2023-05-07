@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 const app = express();
 app.use(express.json())
+const uri = 'mongodb+srv://onitotask:onito123@cluster0.64f30ri.mongodb.net/?retryWrites=true&w=majority'
 
 // mongoDB connection
 export const db = mongoose.connect(uri).then(() => {
@@ -15,7 +16,7 @@ export const db = mongoose.connect(uri).then(() => {
 // schema
 const userSchema = mongoose.Schema({
     name: String,
-    date_of_birth_and_age: String,
+    date_of_birth_and_age: Number,
     gender: String,
     mobile: Number,
     government_id: String,
@@ -35,9 +36,6 @@ const userSchema = mongoose.Schema({
 })
 
 // // model for the data
-const UserData = mongoose.model('UserData', userSchema)
+export const UserData = mongoose.model('UserData', userSchema)
 
 
-app.listen(port, () => {
-    console.log(`Server running at port ${port}`);
-})
