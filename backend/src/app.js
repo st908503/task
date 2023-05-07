@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors'
-import { UserData } from './dbConfig.js';
+import { UserData } from './db/dbConfig.js';
 
 const app = express();
 app.use(express.json())

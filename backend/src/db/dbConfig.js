@@ -16,7 +16,7 @@ export const db = mongoose.connect(uri).then(() => {
 // schema
 const userSchema = mongoose.Schema({
     name: String,
-    date_of_birth_and_age: Number,
+    date_of_birth_and_age: String,
     gender: String,
     mobile: Number,
     government_id: String,

@@ -1,43 +1,23 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm} from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import {
-    states,
-    cities,
-    salutation,
-    religion,
-    m_status,
-    b_group,
-} from "./data";
 import { Link } from "react-router-dom";
 
 const Form = () => {
-    const phoneRegExp = /^([0]|\+91)?[789]\d{9}$/;
-    const panRegExp = /^[A-Z]{5}\d{4}[A-Z]{1}$/;
 
     const validationSchema = yup
         .object().shape({
             name: yup.string().required('Name is required field'),
             date_of_birth_and_age: yup.string().required('DOB is required field'),
             gender: yup.string().required('Please select gender'),
-            mobile: yup.string().matches(phoneRegExp, 'Phone number is not valid').min(10, "Phone number must be of minimum 10 digits").max(10, "Phone number must be of 10 digits only"),
-            emergency_contact_number: yup.string().matches(phoneRegExp, 'Phone number is not valid').min(10, "Phone number must be of minimum 10 digits").max(10, "Phone number must be of 10 digits only"),
+            mobile: yup.string().matches(/^([0]|\+91)?[789]\d{9}$/, 'Phone number is not valid').min(10, "Phone number must be of minimum 10 digits").max(10, "Phone number must be of 10 digits only"),
+            emergency_contact_number: yup.string().matches(/^([0]|\+91)?[789]\d{9}$/, 'Phone number is not valid').min(10, "Phone number must be of minimum 10 digits").max(10, "Phone number must be of 10 digits only"),
             aadhar: yup.string().required('Please enter Aadhar').matches(/^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$/, 'Aadhar is required and must be a 12-digit number.'),
-            pan: yup.string().required('Please enter PAN').matches(panRegExp, 'PAN is required and must be 10-digit alpha-numeric .')
-            // idType: yup.string().required(),
-            // idNumber: yup.string().when("idType", {
-            //     is: "pan",
-            //     then: yup.string().matches(/^[\w\d]{10}$/, "Invalid PAN number"),
-            //     otherwise: yup.string().matches(/^\d{12}$/, "Invalid Aadhar number"),
-            // }),
+            pan: yup.string().required('Please enter PAN').matches(/^[A-Z]{5}\d{4}[A-Z]{1}$/, 'PAN is required and must be 10-digit alpha-numeric .')
         })
         .required();
-
-    // const str = JSON.stringify(validationSchema);
-    // const finalData = JSON.parse(str)
-
 
     const {
         register,
@@ -142,7 +122,7 @@ const Form = () => {
                                 <option value="Aadhar">Aadhar</option>
                                 <option value="PAN">PAN</option>
                             </select>
-                            {/* <input type="text" placeholder='Enter Govt ID' className='border-gray-400 border-2 rounded px-1 w-52' /> */}
+                           
                         </div>
                         {idType === "Aadhar" ? (
                             <div>
