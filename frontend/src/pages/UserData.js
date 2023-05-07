@@ -41,7 +41,7 @@ const UserData = () => {
             selector: row => row.address
         },
         {
-            pan: 'Enter Nationality',
+            pan: 'Enter PAN',
             selector: row => row.pan
         },
         {

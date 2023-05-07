@@ -1,16 +1,16 @@
 import React from "react";
-import { useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Form = () => {
+const FormData = () => {
 
     const validationSchema = yup
         .object().shape({
             name: yup.string().required('Name is required field'),
-            date_of_birth_and_age: yup.string().required('DOB is required field'),
+            date_of_birth_or_age: yup.string().required('DOB is required field'),
             gender: yup.string().required('Please select gender'),
             mobile: yup.string().matches(/^([0]|\+91)?[789]\d{9}$/, 'Phone number is not valid').min(10, "Phone number must be of minimum 10 digits").max(10, "Phone number must be of 10 digits only"),
             emergency_contact_number: yup.string().matches(/^([0]|\+91)?[789]\d{9}$/, 'Phone number is not valid').min(10, "Phone number must be of minimum 10 digits").max(10, "Phone number must be of 10 digits only"),
@@ -30,15 +30,11 @@ const Form = () => {
     const idType = watch("idType");
 
     const submitDetails = async (data) => {
-        console.log(data);
-        try {
-            axios
-                .post("http://localhost:8000/formdetails", data)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
-        } catch (err) {
-            console.log(err);
-        }
+        console.log(data)
+        axios.post("http://localhost:8000/formdetails", data)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+
     };
 
     return (
@@ -62,18 +58,18 @@ const Form = () => {
                             )}
                         </div>
                         <div>
-                            <label htmlFor="date_of_birth_and_age">
+                            <label htmlFor="date_of_birth_or_age">
                                 Date of Birth or Age<span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="text"
                                 placeholder="DD/MM/YYYY or Age in years"
                                 className="border-gray-400 border-2 rounded px-1 w-64 ml-3"
-                                {...register("date_of_birth_and_age")}
+                                {...register("date_of_birth_or_age")}
                             />
-                            {errors.date_of_birth_and_age && (
+                            {errors.date_of_birth_or_age && (
                                 <div className="text-red-500">
-                                    {errors.date_of_birth_and_age.message}
+                                    {errors.date_of_birth_or_age.message}
                                 </div>
                             )}
                         </div>
@@ -122,7 +118,7 @@ const Form = () => {
                                 <option value="Aadhar">Aadhar</option>
                                 <option value="PAN">PAN</option>
                             </select>
-                           
+
                         </div>
                         {idType === "Aadhar" ? (
                             <div>
@@ -358,4 +354,4 @@ const Form = () => {
     );
 };
 
-export default Form;
+export default FormData;
