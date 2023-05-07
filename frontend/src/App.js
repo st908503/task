@@ -1,4 +1,3 @@
-import './App.css';
 import Form from './pages/Form';
 import UserData from './pages/UserData';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
